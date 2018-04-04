@@ -1,4 +1,3 @@
-// var babel = require('rollup-plugin-babel');
 var filesize = require('rollup-plugin-filesize');
 var del = require('del');
 var argv = require('yargs').argv;
