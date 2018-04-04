@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"serve": "serve --open"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify-es": "^1.0.1",
     "rollup": "^0.57.1",
-    "rollup-plugin-filesize": "^1.5.0"
+    "rollup-plugin-filesize": "^1.5.0",
+    "serve": "^6.5.3"
   }
 }
