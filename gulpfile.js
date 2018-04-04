@@ -40,7 +40,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('scripts:main', function() {
-    return gulp.src('./src/scripts/main.js')
+    return gulp.src('./_source/scripts/main.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig(), ROLLUP_MODULE_FORMAT))
         .pipe(gulpif(isProd, uglify()))
@@ -49,7 +49,7 @@ gulp.task('scripts:main', function() {
 });
 
 gulp.task('scripts:main-legacy', function() {
-    return gulp.src('./src/scripts/main-legacy.js')
+    return gulp.src('./_source/scripts/main-legacy.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig({ isLegacy: true}), ROLLUP_MODULE_FORMAT))
         .pipe(gulpif(isProd, uglify()))
@@ -58,3 +58,4 @@ gulp.task('scripts:main-legacy', function() {
 });
 
 gulp.task('default', gulp.series('clean', 'scripts:main', 'scripts:main-legacy'))
+
