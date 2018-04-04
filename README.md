@@ -1,4 +1,4 @@
-# Gulp ESNext Boilerplate
+# Gulp Rollup ESNext Boilerplate
 | Boilerplate for ESNext modules using Rollup, Babel and Gulp
 
 ## What does this do
