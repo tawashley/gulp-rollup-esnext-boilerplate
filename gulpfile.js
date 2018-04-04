@@ -19,6 +19,10 @@ function getRollupConfig({ isLegacy = false } = {}) {
     return options;
 }
 
+var ROLLUP_MODULE_FORMAT = {
+    format: 'es'
+};
+
 gulp.task('clean', function () {
     return del(['./dist'], {
         force: true
@@ -28,9 +32,7 @@ gulp.task('clean', function () {
 gulp.task('scripts:compile', function() {
     return gulp.src('./src/scripts/main.js')
         .pipe(sourcemaps.init())
-        .pipe(rollup(getRollupConfig(), {
-            format: 'es'
-        }))
+        .pipe(rollup(getRollupConfig(), ROLLUP_MODULE_FORMAT))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./dist'))
 });
@@ -38,9 +40,7 @@ gulp.task('scripts:compile', function() {
 gulp.task('scripts:compile-legacy', function() {
     return gulp.src('./src/scripts/main-legacy.js')
         .pipe(sourcemaps.init())
-        .pipe(rollup(getRollupConfig({ isLegacy: true}), {
-            format: 'es'
-        }))
+        .pipe(rollup(getRollupConfig({ isLegacy: true}), ROLLUP_MODULE_FORMAT))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./dist'))
 });
