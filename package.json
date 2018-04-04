@@ -31,6 +31,7 @@
     "serve": "^6.5.3"
   },
   "dependencies": {
+    "promise-polyfill": "7.1.1",
     "whatwg-fetch": "^2.0.4"
   }
 }
