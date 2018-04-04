@@ -11,9 +11,18 @@ var rollup = require('gulp-better-rollup');
 var isProd = (argv.prod || false);
 
 function getRollupConfig({ isLegacy = false } = {}) {
-	var options = {};
+    return {}
+}
 
-    return options;
+function getRollupGenerateConfig({ isLegacy = false } = {}) {
+	var introJsString = (isLegacy) ? `var __BUNDLE_TYPE="legacy";` : `var __BUNDLE_TYPE="edge";`;
+
+	introJsString += `var __BUNDLE_LEGACY=${isLegacy};`;
+
+    return {
+        format: 'es',
+        intro: introJsString
+    }
 }
 
 function getBabelBrowsersConfig(isLegacy = false) {
@@ -54,10 +63,6 @@ function getBabelConfig({ isLegacy = false } = {}) {
     return options;
 }
 
-var ROLLUP_MODULE_FORMAT = {
-    format: 'es'
-};
-
 gulp.task('clean', function () {
     return del(['./dist'], {
         force: true
@@ -67,7 +72,7 @@ gulp.task('clean', function () {
 gulp.task('scripts:main', function() {
     return gulp.src('./_source/scripts/main.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
-        .pipe(rollup(getRollupConfig(), ROLLUP_MODULE_FORMAT))
+        .pipe(rollup(getRollupConfig(), getRollupGenerateConfig()))
         .pipe(babel(getBabelConfig()))
         .pipe(gulpif(isProd, uglify()))
         .pipe(gulpif(!isProd, sourcemaps.write()))
@@ -77,7 +82,7 @@ gulp.task('scripts:main', function() {
 gulp.task('scripts:main-legacy', function() {
     return gulp.src('./_source/scripts/main-legacy.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
-        .pipe(rollup(getRollupConfig({ isLegacy: true}), ROLLUP_MODULE_FORMAT))
+        .pipe(rollup(getRollupConfig({ isLegacy: true }), getRollupGenerateConfig({ isLegacy: true })))
         .pipe(babel(getBabelConfig({ isLegacy: true })))
         .pipe(gulpif(isProd, uglify()))
         .pipe(gulpif(!isProd, sourcemaps.write()))
