@@ -1,5 +1,5 @@
 {
-  "name": "_es-modules-spike",
+  "name": "gulp-rollup-esnext-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
