@@ -1,9 +1,13 @@
 var babel = require('rollup-plugin-babel');
 var del = require('del');
+var argv = require('yargs').argv;
 
 var gulp = require('gulp');
+var gulpif = require('gulp-if');
 var sourcemaps = require('gulp-sourcemaps');
 var rollup = require('gulp-better-rollup');
+
+var isProd = (argv.prod || false);
 
 function getRollupConfig({ isLegacy = false } = {}) {
     var options = {};
@@ -29,20 +33,20 @@ gulp.task('clean', function () {
     });
 });
 
-gulp.task('scripts:compile', function() {
+gulp.task('scripts:main', function() {
     return gulp.src('./src/scripts/main.js')
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig(), ROLLUP_MODULE_FORMAT))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulpif(!isProd, sourcemaps.write()))
+        .pipe(gulp.dest('./dist/scripts'))
 });
 
-gulp.task('scripts:compile-legacy', function() {
+gulp.task('scripts:main-legacy', function() {
     return gulp.src('./src/scripts/main-legacy.js')
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig({ isLegacy: true}), ROLLUP_MODULE_FORMAT))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulpif(!isProd, sourcemaps.write()))
+        .pipe(gulp.dest('./dist/scripts'))
 });
 
-gulp.task('default', gulp.series('clean', 'scripts:compile', 'scripts:compile-legacy'))
+gulp.task('default', gulp.series('clean', 'scripts:main', 'scripts:main-legacy'))
