@@ -1,15 +1,7 @@
 import { dep1 } from './dep1.js';
 import { dep2 } from './dep2.js';
 import * as DOMUtils from './dom-utils';
-
-function getBundleDetailsHTML() {
-    var html = [];
-
-    html.push(`<p>JS bundle being used: <strong>${__BUNDLE_TYPE}</strong></p>`);
-    html.push(`<p>Is the JS bundle legacy: <strong>${__BUNDLE_LEGACY}</strong></p>`)
-
-    return html.join('');
-}
+import { getBundleDetailsHTML } from './bundle-details-html';
 
 export function start() {
     console.log('JS bundle -->', __BUNDLE_TYPE);
@@ -20,6 +12,7 @@ export function start() {
     var elemBundleDetails = document.querySelector('[data-bundle-details]');
 
     elemBundleDetails.innerHTML = getBundleDetailsHTML();
+    DOMUtils.addClass(elemBundleDetails, 'test-class');
 }
 
 export default {
