@@ -1,6 +1,6 @@
 import 'promise-polyfill/dist/polyfill';
 import 'whatwg-fetch';
 
-import { start } from './src/app.js';
+import * as app from './src/app.js';
 
-start();
+app.start();
