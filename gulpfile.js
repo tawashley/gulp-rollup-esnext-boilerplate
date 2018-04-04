@@ -7,17 +7,20 @@ var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify-es').default;
 var sourcemaps = require('gulp-sourcemaps');
 var rollup = require('gulp-better-rollup');
+var rollupResolve = require('rollup-plugin-node-resolve');
 
 var isProd = (argv.prod || false);
 
 function getRollupConfig({ isLegacy = false } = {}) {
-    return {}
+    return {
+        plugins: [rollupResolve()]
+    }
 }
 
 function getRollupGenerateConfig({ isLegacy = false } = {}) {
-	var introJsString = (isLegacy) ? `var __BUNDLE_TYPE="legacy";` : `var __BUNDLE_TYPE="edge";`;
+    var introJsString = (isLegacy) ? `var __BUNDLE_TYPE="legacy";` : `var __BUNDLE_TYPE="edge";`;
 
-	introJsString += `var __BUNDLE_LEGACY=${isLegacy};`;
+    introJsString += `var __BUNDLE_LEGACY=${isLegacy};`;
 
     return {
         format: 'es',
@@ -90,4 +93,3 @@ gulp.task('scripts:main-legacy', function() {
 });
 
 gulp.task('default', gulp.series('clean', 'scripts:main', 'scripts:main-legacy'))
-
