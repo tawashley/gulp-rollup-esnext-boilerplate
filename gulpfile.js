@@ -1,4 +1,3 @@
-var filesize = require('rollup-plugin-filesize');
 var del = require('del');
 var argv = require('yargs').argv;
 var babel = require('gulp-babel');
@@ -12,11 +11,7 @@ var rollup = require('gulp-better-rollup');
 var isProd = (argv.prod || false);
 
 function getRollupConfig({ isLegacy = false } = {}) {
-    var options = {};
-
-    options.plugins = [
-        filesize()
-    ];
+	var options = {};
 
     return options;
 }
