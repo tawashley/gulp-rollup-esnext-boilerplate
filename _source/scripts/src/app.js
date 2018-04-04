@@ -13,6 +13,13 @@ export function start() {
 
     elemBundleDetails.innerHTML = getBundleDetailsHTML();
     DOMUtils.addClass(elemBundleDetails, 'test-class');
+
+    fetch('https://httpbin.org/user-agent')
+        .then((response) => response.json())
+        .then(function(response) {
+            document.querySelector('[data-user-agent]').innerHTML = response["user-agent"];
+            console.log('response:', response)
+        })
 }
 
 export default {
