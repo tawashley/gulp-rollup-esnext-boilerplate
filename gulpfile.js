@@ -1,4 +1,5 @@
 var babel = require('rollup-plugin-babel');
+var filesize = require('rollup-plugin-filesize');
 var del = require('del');
 var argv = require('yargs').argv;
 
@@ -13,12 +14,16 @@ var isProd = (argv.prod || false);
 function getRollupConfig({ isLegacy = false } = {}) {
     var options = {};
 
+    options.plugins = [
+        filesize()
+    ];
+
     if(isLegacy === true) {
-        options.plugins = [
+        options.plugins.push(
             babel({
                 exclude: 'node_modules/**'
             })
-        ]
+        );
     }
 
     return options;
