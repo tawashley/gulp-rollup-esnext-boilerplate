@@ -1,3 +1,3 @@
-import { run2 } from './src/app.js';
+import { start } from './src/app.js';
 
-run2();
+start();
