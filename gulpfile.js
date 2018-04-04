@@ -4,6 +4,7 @@ var argv = require('yargs').argv;
 
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var rollup = require('gulp-better-rollup');
 
@@ -37,6 +38,7 @@ gulp.task('scripts:main', function() {
     return gulp.src('./src/scripts/main.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig(), ROLLUP_MODULE_FORMAT))
+        .pipe(gulpif(isProd, uglify()))
         .pipe(gulpif(!isProd, sourcemaps.write()))
         .pipe(gulp.dest('./dist/scripts'))
 });
@@ -45,6 +47,7 @@ gulp.task('scripts:main-legacy', function() {
     return gulp.src('./src/scripts/main-legacy.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig({ isLegacy: true}), ROLLUP_MODULE_FORMAT))
+        .pipe(gulpif(isProd, uglify()))
         .pipe(gulpif(!isProd, sourcemaps.write()))
         .pipe(gulp.dest('./dist/scripts'))
 });
