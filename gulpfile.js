@@ -23,7 +23,7 @@ function getRollupGenerateConfig({ isLegacy = false } = {}) {
     introJsString += `var __BUNDLE_LEGACY=${isLegacy};`;
 
     return {
-        format: 'es',
+        format: 'iife',
         intro: introJsString
     }
 }
