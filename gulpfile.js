@@ -1,3 +1,6 @@
+var fs = require('fs');
+var path = require('path');
+
 var del = require('del');
 var argv = require('yargs').argv;
 var babel = require('gulp-babel');
@@ -18,13 +21,13 @@ function getRollupConfig({ isLegacy = false } = {}) {
 }
 
 function getRollupGenerateConfig({ isLegacy = false } = {}) {
-    var introJsString = (isLegacy) ? `var __BUNDLE_TYPE="legacy";` : `var __BUNDLE_TYPE="edge";`;
-
-    introJsString += `var __BUNDLE_LEGACY=${isLegacy};`;
+    var introDirectory = "./_source/scripts/bundle-intro";
+    var introFileName = (isLegacy) ? "intro-main-legacy.js" : "intro-main.js";
+    var introFilePath = path.join(introDirectory, introFileName);
 
     return {
         format: 'iife',
-        intro: introJsString
+        intro: fs.readFileSync(introFilePath, 'utf8')
     }
 }
 
