@@ -17,7 +17,6 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.44",
     "@babel/preset-env": "^7.0.0-beta.44",
-    "argv": "0.0.2",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0-beta.2",
@@ -27,7 +26,8 @@
     "gulp-uglify-es": "^1.0.1",
     "rollup": "^0.57.1",
     "rollup-plugin-node-resolve": "^3.3.0",
-    "serve": "^6.5.3"
+    "serve": "^6.5.3",
+    "yargs": "^12.0.1"
   },
   "dependencies": {
     "promise-polyfill": "7.1.1",
