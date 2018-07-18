@@ -14,7 +14,7 @@ var rollupResolve = require('rollup-plugin-node-resolve');
 
 var isProd = (argv.prod || false);
 
-function getRollupConfig({ isLegacy = false } = {}) {
+function getRollupConfig() {
     return {
         plugins: [rollupResolve()]
     }
@@ -88,7 +88,7 @@ gulp.task('scripts:main', function() {
 gulp.task('scripts:main-legacy', function() {
     return gulp.src('./_source/scripts/main-legacy.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
-        .pipe(rollup(getRollupConfig({ isLegacy: true }), getRollupGenerateConfig({ isLegacy: true })))
+        .pipe(rollup(getRollupConfig(), getRollupGenerateConfig({ isLegacy: true })))
         .pipe(babel(getBabelConfig({ isLegacy: true })))
         .pipe(gulpif(isProd, uglify()))
         .pipe(gulpif(!isProd, sourcemaps.write()))
